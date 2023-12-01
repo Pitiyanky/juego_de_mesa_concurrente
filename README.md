@@ -1,29 +1,33 @@
-# Proyecto: Sistemas Operativos – Sem 1 - 2023
-## Descripción del Juego
-Este proyecto modela un juego de mesa que incluye N jugadores y un jefe de mesa. Los jugadores pueden mover sus fichas todos al mismo tiempo, siempre y cuando el jefe de mesa no esté reordenando el tablero. El jefe de mesa reordena el tablero cada vez que termina de pensar sus cambios. Además, el jefe de mesa deja cartas con instrucciones para los jugadores en caso de que esté esperando para reordenar el tablero. Hay dos tipos de cartas: una que indica que se debe esperar a que el jefe de mesa reordene el tablero para poder jugar, y otra que permite jugar antes del reordenamiento de fichas.
+# Proyecto de Simulación de Juego de Cartas
 
-## Funciones
-Los jugadores ejecutan las siguientes funciones:
+## Descripción
+Este proyecto simula un juego de cartas con múltiples jugadores y un jefe de mesa. Los jugadores pueden jugar o esperar dependiendo de las cartas que sacan del mazo, y el jefe de mesa puede reordenar el tablero y colocar nuevas cartas en el mazo. El código utiliza hilos y mecanismos de sincronización para manejar la concurrencia.
 
-pensar_jugada()
-sacar_carta_de_mazo():Carta
-jugar()
-El Jefe de Mesa ejecuta las siguientes funciones:
+## Características
+- Implementa hilos con la biblioteca pthreads de C.
+- Usa mutexes y variables de condición para controlar el acceso concurrente.
+- Simula diferentes escenarios de juego concurrente.
 
-pensar_reordenamiento()
-reordenar_tablero()
-elegir_proxima_carta():Carta
-colocar_carta_en_mazo(Carta)
-## Contabilización
-Se contabiliza lo siguiente:
+## Requisitos
+- Compilador GCC
+- Soporte para pthreads
 
-Número de veces que el jefe de mesa reordenó el tablero durante una partida
-Número de jugadas por jugador durante la partida
-Número total de cartas de jugar durante la partida, por jugador
-Número total de cartas de esperar durante la partida, por jugador
-Número total de cartas de jugar durante la partida
-Número total de cartas de esperar durante la partida
-## Simulación
-La simulación debe evitar las situaciones de interbloqueo, inanición y espera activa. Se debe procurar un elevado grado de concurrencia entre los procesos. Jugadores y el jefe de mesa deben emitir mensajes informativos por pantalla cada vez que su situación se modifique. De esta forma, la salida permitirá tener acceso a toda la información, para que se pueda verificar el comportamiento.
+## Compilación y Ejecución
+Utilice el archivo makefile incluido para compilar:
 
+```bash
+$ make
+```
+
+Para ejecutar el programa:
+
+```bash
+$ ./juego
+```
+
+## Estructura del Proyecto
+- `main.c`: Punto de entrada del programa, contiene la lógica principal.
+- `jugador.h` y `jugador.c`: Definen las funciones y comportamientos del jugador.
+- `jefe_de_mesa.h` y `jefe_de_mesa.c`: Definen las funciones y comportamientos del jefe de mesa.
+- `variables.h` y `variables.c`: Definen las variables globales utilizadas en el proyecto.
 
