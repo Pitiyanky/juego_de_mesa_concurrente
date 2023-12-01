@@ -47,10 +47,6 @@ void* jefe_de_mesa(void* arg) {
     while (num_reordenamientos<maximo_reordenamientos+1) { //El jefe de mesa solo realizara un numero maximo de reordenamientos
       pensar_reordenamiento();
       reordenar_tablero();
-      //si no hay cartas se reordena el tablero de nuevo
-      if(num_cartas == 0){
-        reordenar_tablero();
-      }
       Carta carta = elegir_proxima_carta();
       colocar_carta_en_mazo(carta);
 
