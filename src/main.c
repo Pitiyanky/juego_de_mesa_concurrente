@@ -11,7 +11,7 @@ int main() {
   int i, num_jugador[MAX_JUGADORES];
   pthread_t tid_jugador[MAX_JUGADORES], tid_jefe_de_mesa;
   for (i = 0; i < MAX_JUGADORES; i++) {
-    num_jugador[i] = i + 1;  // Asignar el número del jugador
+    num_jugador[i] = i;  // Asignar el número del jugador
     pthread_create(&tid_jugador[i], NULL, jugador, &num_jugador[i]);
   }
   pthread_create(&tid_jefe_de_mesa, NULL, jefe_de_mesa, NULL);
