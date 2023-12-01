@@ -26,6 +26,7 @@ Carta elegir_proxima_carta() {
   printf("El jefe de mesa está eligiendo la próxima carta.\n");
   srand(time(NULL));  // Inicializar la semilla del generador de números aleatorios
   Carta carta;
+  sleep(rand() % 3 + 1); 
   if (rand() % 2 == 0) {  // Generar un número aleatorio y comprobar si es par
       carta.tipo = JUGAR;
   } else {
@@ -43,13 +44,18 @@ void colocar_carta_en_mazo(Carta carta) {
   pthread_mutex_unlock(&mutex_mazo);
 }
 
-void* jefe_de_mesa(void* arg) {
-    while (num_reordenamientos<maximo_reordenamientos+1) { //El jefe de mesa solo realizara un numero maximo de reordenamientos
+void* jefe_de_mesa_reordenar(void* arg) {
+    while (num_reordenamientos < maximo_reordenamientos + 1) { 
       pensar_reordenamiento();
       reordenar_tablero();
+    }
+    return NULL;
+}
+
+void* jefe_de_mesa_cartas(void* arg) {
+    while (num_reordenamientos < maximo_reordenamientos + 1) { 
       Carta carta = elegir_proxima_carta();
       colocar_carta_en_mazo(carta);
-
     }
     return NULL;
 }
