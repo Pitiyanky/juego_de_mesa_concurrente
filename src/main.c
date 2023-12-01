@@ -14,7 +14,7 @@ int main() {
   do
   {
       printf("=================================================\n");
-      printf(" MENÚ PRINCIPAL - SIMULACIÓN DE jUEGO DE MESA\n");
+      printf(" MENÚ PRINCIPAL - SIMULACIÓN DE JUEGO DE MESA\n");
       printf("=================================================\n");
       printf("Seleccione una opción:\n");
       printf("1 - Se permiten cartas (El jefe de mesa pondra cartas cada cierto tiempo)\n");
