@@ -18,9 +18,10 @@ void* jugador(void* arg);
 void* jefe_de_mesa(void* arg);
 //Variables Compartidas
 Carta mazo[10];
-const int MAX_JUGADORES = 100;
+const int MAX_JUGADORES = 10;
 int num_cartas = 0;
 int reordenando = 0;
+int maximo_reordenamientos = 10;
 //Contadores
 int num_reordenamientos = 0;  // Número de veces que el jefe de mesa reordenó el tablero
 int num_jugadas[MAX_JUGADORES] = {0};  // Número de jugadas por jugador
@@ -48,7 +49,16 @@ int main() {
   for (i = 0; i < MAX_JUGADORES; i++) {
      pthread_join(tid_jugador[i], NULL);
   }
-  
+
+  printf("Total reordenamientos: %d\n", num_reordenamientos);
+  printf("Total de cartas Jugar: %d\n", total_cartas_jugar);
+  printf("Total de cartas Rsperar: %d\n", total_cartas_esperar);
+
+  for(int i = 0; i < MAX_JUGADORES; i++) {
+      printf("Numero Jugadas del jugador %d: %d\n", i, num_jugadas[i]);
+      printf("Numero de cartas Jugar del jugador %d: %d\n", i, num_cartas_jugar[i]);
+      printf("Numero de cartas Esperar del jugador %d: %d\n", i, num_cartas_esperar[i]);
+  }
 
   return 0;
 }
@@ -71,7 +81,7 @@ void jugar(int num_jugador) {
   num_jugadas[num_jugador]++;
   sleep(rand() % 3 + 1);  // Jugar durante 1-3 segundos
   pthread_mutex_unlock(&mutex_tablero);
-  printf("El jugador %d realizo su jugada.\n", num_jugador);
+  printf("El jugador %d termino su jugada.\n", num_jugador);
 }
 
 void esperar(int num_jugador) {
@@ -83,7 +93,7 @@ void esperar(int num_jugador) {
 
 void* jugador(void* arg) {
   int num_jugador = *(int*)arg;
-  while (1) {
+  while (num_reordenamientos<maximo_reordenamientos) {
     pensar_jugada(num_jugador);
     if(reordenando){
       pthread_mutex_lock(&mutex_mazo);
@@ -153,7 +163,7 @@ void colocar_carta_en_mazo(Carta carta) {
 }
 
 void* jefe_de_mesa(void* arg) {
-    while (1) {
+    while (num_reordenamientos<maximo_reordenamientos+1) {
       pensar_reordenamiento();
       reordenar_tablero();
       if(num_cartas == 0){
