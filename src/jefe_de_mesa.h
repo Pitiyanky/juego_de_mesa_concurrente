@@ -6,6 +6,7 @@ void pensar_reordenamiento();
 void reordenar_tablero();
 Carta elegir_proxima_carta();
 void colocar_carta_en_mazo(Carta carta);
-void* jefe_de_mesa(void* arg);
+void* jefe_de_mesa_reordenar(void* arg);
+void* jefe_de_mesa_cartas(void* arg);
 
 #endif
